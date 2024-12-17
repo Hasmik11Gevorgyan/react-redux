@@ -1,0 +1,10 @@
+.appInfo{
+    max-width:1024px;
+    height: 250px;
+    background: linear-gradient(rgba(164, 60, 164, 0.707),#cb0ecb,pink);
+    color: rgb(74, 4, 70);
+    font-size: 18px;
+    padding:20px;
+    margin-top:40px;
+    border-radius:30px ;
+}

@@ -1,0 +1,14 @@
+
+.app-filter{
+    margin-top:40px; 
+    display:grid; 
+    grid-template-columns: 100px 100px 100px;
+    gap:16px;
+    border-radius:30px ;
+    button{
+        margin-top: 15px;
+        border-radius:15px;
+        color:#cb0ecb;
+    }
+
+}
