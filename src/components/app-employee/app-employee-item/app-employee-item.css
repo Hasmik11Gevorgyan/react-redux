@@ -1,0 +1,13 @@
+
+.app-employ-item{
+    
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+   
+}
+
+.employee-name{
+  font-size:22px;
+  font-weight:500;
+}
