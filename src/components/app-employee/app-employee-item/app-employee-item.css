@@ -5,9 +5,18 @@
     justify-content: space-between;
     align-items: center;
    
-}
+
 
 .employee-name{
   font-size:22px;
   font-weight:500;
 }
+.employee-salary{
+  color:white
+}
+& .increased{
+  .employee-name .employee-salary{
+    color: rgb(255, 81, 0)
+  }}
+}
+

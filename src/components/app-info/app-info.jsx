@@ -1,6 +1,9 @@
 import "./app-info.css"
+import { Component } from "react"
 
-export default function AppInfo(){
+
+export default  class AppInfo extends Component{
+   render(){
     return(
         <div className="appInfo">
             <h2>Data agency LTD</h2>
@@ -8,4 +11,5 @@ export default function AppInfo(){
             <h3> People who will recieved a reward : 0</h3>
         </div>
     )
+   }
 }

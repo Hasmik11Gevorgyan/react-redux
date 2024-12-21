@@ -1,7 +1,9 @@
+import { Component } from "react"
 import "./app-add-employee.css"
 
-export default function AddEmployee(){
-    return(
+export default class AddEmployee extends Component{
+    render(){
+      return(
         <div className="add-employee">
   <input
   type="text"
@@ -13,4 +15,5 @@ export default function AddEmployee(){
   </button>
         </div>
     )
+    }
 }
