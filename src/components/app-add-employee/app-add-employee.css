@@ -1,7 +1,7 @@
 
 .add-employee{
     max-width:1024px;
-    height: 100px;
+    min-height: 100px;
     background: linear-gradient(rgba(164, 60, 164, 0.707),#cb0ecb,pink);
     color: rgb(74, 4, 70);
     font-size: 18px;
@@ -9,13 +9,14 @@
     margin-top:40px;
     border-radius:30px ;
     input{
-        width: 75%;
+        width: 40%;
         padding: 10px;
-        border-radius:15px 0 0 15px;
+        margin-left: 15px;
     }
     button{
         width:10%;
         padding: 10px;
+        margin-left: 10px;
     }
     .btn{
         color: red;

@@ -14,9 +14,34 @@
 .employee-salary{
   color:white
 }
-& .increased{
-  .employee-name .employee-salary{
-    color: rgb(255, 81, 0)
-  }}
+
+
+}
+
+.employee-btns {
+  display: flex;
+  gap: 8px;
+
+  button {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #fefefe;
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    &.fav {
+      display: none;
+    }
+  }
+}
+
+&.increased {
+  .employee-name, .employee-salary {
+    color: gold;
+  }
 }
 
