@@ -5,45 +5,37 @@ export default class AddEmployee extends Component{
   
   constructor(props){
     super(props);
-    const {data} = this.state.data
     this.state={
       name: "",
       salary:0 
     }
   }
  
-  onInputValueChange =(e)=>{
-    
+  onInputValueChange =(e)=> { 
     this.setState({
       [e.target.name]: e.target.value
+    });
+  }
+  onAddHandler = (e) => {
+    e.preventDefault();
+    if(this.state.name.length < 3 || !this.state.salary) return ;
+
+    this.props.onAdd(this.state.name, this.state.salary);
+    this.setState({
+      name :"",
+      salary :""
     })
   }
- onSubmit = this.onSubmit.bind(this);
-
-  onSubmit =(e)=>{
-    this.setState([
-      ({...data})
-    ],
-    {
-      id:Math.random(),
-      name:"",
-      salary:"",
-      increase:false
-    }
-      
-      
-    )
-  }
-  
     render(){
+      const {name,salary} = this.state
       return(
         <form
-        onSubmit={this.onSubmit}
+        onSubmit={this.onAddHandler}
         className="add-employee">
         <h3>  Add new Employee</h3>
   <input
   type="text"
-  value={this.state.name}
+  value={name}
   placeholder="Employee name"
   name="name"
   onChange={this.onInputValueChange}
@@ -51,7 +43,7 @@ export default class AddEmployee extends Component{
   <input
   type="number"
   placeholder="Employee Salary"
-  value={this.state.salary}
+  value={salary}
   name="salary"
   onChange={this.onInputValueChange}
   />

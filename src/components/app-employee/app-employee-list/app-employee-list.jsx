@@ -5,14 +5,21 @@ import { Component } from "react";
 
 export default class AppEmployeeList extends Component{
     render(){
-        const { data, onDelete } = this.props;
-        const employees = data.map(item => {
-          return <AppEmployeeItem
-            key={item.id}
-            {...item}
-            onDelete={() => onDelete(item.id)}
-          />;
-        });
+        const { 
+          data,
+          onDelete,
+          onToggleIncrease, 
+          onToggleRise
+        } = this.props;
+          const employees = data.map(item => {
+            return <AppEmployeeItem
+              key={item.id}
+              {...item}
+              onDelete={() => onDelete(item.id)}
+              onToggleIncrease={() => onToggleIncrease(item.id)}
+              onToggleRise={() => onToggleRise(item.id)}
+            />;
+          });
         
         return (
             <>
