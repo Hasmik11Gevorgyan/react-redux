@@ -1,0 +1,47 @@
+
+.app-employ-item{
+    
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+   
+
+
+.employee-name{
+  font-size:22px;
+  font-weight:500;
+}
+.employee-salary{
+  color:white
+}
+
+
+}
+
+.employee-btns {
+  display: flex;
+  gap: 8px;
+
+  button {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #fefefe;
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    &.fav {
+      display: none;
+    }
+  }
+}
+
+&.increased {
+  .employee-name, .employee-salary {
+    color: gold;
+  }
+}
+

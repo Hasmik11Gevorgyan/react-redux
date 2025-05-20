@@ -1,0 +1,15 @@
+.appSearch{ 
+    input{
+    padding: 8px 16px;
+    width:80%;
+    border-radius:15px 0 0 15px;
+}
+button{
+    border-radius: 0 15px 15px 0;
+    width:20%;
+    padding:8px 16px;
+    font-weight: large;
+    background:pink;
+    color:rgb(43, 3, 33)
+}
+}
