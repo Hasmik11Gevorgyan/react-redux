@@ -9,6 +9,7 @@ const List = () => {
   const books = useSelector((state) => state.books);
   const filteredTitle = useSelector(selectTitleFilter);
   const filteredAuthor = useSelector(selectAuthorFilter);
+  const booksByFilteredOnlyFavorite = useSelector(selectOnlyfavoritefilter);
 
   const filteredBooks = books.filter((book) => {
     const matchesTitle = book.title
@@ -19,6 +20,8 @@ const List = () => {
       .includes(filteredAuthor.toLowerCase());
     return matchesTitle && matchesAuthor;
   });
+
+  const onLyFavorite = books.filter((book) => book.isFavorite);
 
   return (
     <div className="w-full p-4 m-4 bg-[#f2f2f2] rounded-md shadow-md">
