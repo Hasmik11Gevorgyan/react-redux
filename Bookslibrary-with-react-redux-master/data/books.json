@@ -5,6 +5,11 @@
     "isFavorite": false
   },
   {
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "isFavorite": false
+  },
+  {
     "title": "1984",
     "author": "George Orwell",
     "isFavorite": false
