@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 // import { addBook } from "../../redux/books/actionCreators";
-import { addBook } from "../../redux/slices/booksSlice";
+import { addBook, fetchBook } from "../../redux/slices/booksSlice";
 import { v4 as uuidv4 } from "uuid";
 import data from "../../../../data/books.json"; // Assuming data.json is in the same directory
-import axios from "axios";
-import createBooksWithId from "../../utils/createBooksWithId.jsx"; // Assuming createBookWithId is a utility function
+
+// Assuming createBookWithId is a utility function
 
 const Form = () => {
   const [title, setTitle] = useState("");
@@ -23,6 +23,7 @@ const Form = () => {
       setTitle("");
     }
   };
+
   const handleRandomBook = () => {
     const rndIndex = Math.floor(Math.random() * data.length);
     const rndBook = data[rndIndex];
@@ -35,10 +36,7 @@ const Form = () => {
   };
 
   const handleAddRandomBookViaAPI = async () => {
-    const res = await axios.get("http://localhost:8888/random-book");
-    if (res.data && res.data.title && res.data.author) {
-       dispatch(addBook(createBooksWithId(res.data,"via API")));
-    }
+    dispatch(fetchBook());
   };
 
   return (

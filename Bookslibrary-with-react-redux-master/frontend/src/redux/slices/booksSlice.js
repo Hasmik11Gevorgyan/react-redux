@@ -1,4 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import createBooksWithId from "../../utils/createBooksWithId";
+import axios from "axios";
+
 
 const initialState = [
   {
@@ -21,6 +24,13 @@ const initialState = [
   },
 ];
 
+export const fetchBook = createAsyncThunk("books/fetchBook", async () => {
+  const res = await axios.get("http://localhost:8888/random-book");
+  console.log("Fetched book:", res.data);
+
+  return res.data;
+});
+
 const booksSlice = createSlice({
   name: "books",
   initialState,
@@ -37,9 +47,32 @@ const booksSlice = createSlice({
           : book
       ),
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchBook.fulfilled, (state, action) => {
+      if(action.payload && action.payload.title && action.payload.author){
+         state.push(createBooksWithId(action.payload, "via api"));
+      }
+        // Create a book with an ID and add it to the state
+     
+    });
+  },
 });
 // Action creators and selectors
 export const { addBook, deleteBook, toggleFavorite } = booksSlice.actions;
+
+// Thunk function to add a random book via API
+// export const thunkFunction = async (dispatch, getState) => {
+//   getState();
+//   try {
+//     const res = await axios.get("http://localhost:8888/random-book");
+//     if (res.data && res.data.title && res.data.author) {
+//       dispatch(addBook(createBooksWithId(res.data, "via API")));
+//     }
+//   } catch (e) {
+//     console.log(e);
+//   }
+//   getState();
+// };
 
 // state
 export const selectState = (state) => state.books;
