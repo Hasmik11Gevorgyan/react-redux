@@ -1,41 +1,53 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import createBooksWithId from "../../utils/createBooksWithId";
 import axios from "axios";
-
+import createBooksWithID from "../../utils/createBooksWithID";
+import { setError } from "./errorSlice";
 
 const initialState = [
   {
-    id: 1,
-    title: "The Hunger Games",
-    author: "Suzanne Collins",
-    isFavoriite: false,
+    id: "1",
+    title: "Book 1",
+    author: "Author 1",
+    source: "initial",
+    isFavorite: false,
   },
   {
-    id: 2,
-    title: " Games",
-    author: " Collins",
-    isFavoriite: false,
+    id: "2",
+    title: "Book 2",
+    author: "Author 2",
+    source: "initial",
+    isFavorite: true,
   },
   {
-    id: 3,
-    title: "The Hunger Games",
-    author: "Suzanne Collins",
+    id: "3",
+    title: "Book 3",
+    author: "Author 3",
+    source: "initial",
     isFavorite: false,
   },
 ];
 
-export const fetchBook = createAsyncThunk("books/fetchBook", async () => {
-  const res = await axios.get("http://localhost:8888/random-book");
-  console.log("Fetched book:", res.data);
-
-  return res.data;
-});
+export const fetchBook = createAsyncThunk(
+  "books/fetchBook",
+  async (url, thunkAPI) => {
+    try {
+      const res = await axios.get(url);
+      return await res.data;
+    } catch (error) {
+      thunkAPI.dispatch(setError(error.message));
+      throw error;
+    }
+  }
+);
 
 const booksSlice = createSlice({
   name: "books",
   initialState,
   reducers: {
     addBook: (state, action) => {
+      state.push(action.payload);
+    },
+    randomBook: (state, action) => {
       state.push(action.payload);
     },
     deleteBook: (state, action) =>
@@ -49,32 +61,32 @@ const booksSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder.addCase(fetchBook.fulfilled, (state, action) => {
-      if(action.payload && action.payload.title && action.payload.author){
-         state.push(createBooksWithId(action.payload, "via api"));
+      if (action.payload.title && action.payload.author) {
+        state.push(createBooksWithID(action.payload, "via api"));
       }
-        // Create a book with an ID and add it to the state
-     
     });
   },
 });
-// Action creators and selectors
-export const { addBook, deleteBook, toggleFavorite } = booksSlice.actions;
 
-// Thunk function to add a random book via API
-// export const thunkFunction = async (dispatch, getState) => {
-//   getState();
+// Action Creators
+export const { addBook, randomBook, deleteBook, toggleFavorite } =
+  booksSlice.actions;
+
+// thunkFunction -> dispatch, getState
+// export const thunkFunction = async (dispatch) => {
 //   try {
 //     const res = await axios.get("http://localhost:8888/random-book");
-//     if (res.data && res.data.title && res.data.author) {
-//       dispatch(addBook(createBooksWithId(res.data, "via API")));
+//     if (res?.data && res?.data.title && res?.data.author) {
+//       dispatch(addBook(createBookWithID(res.data, "via api")));
 //     }
-//   } catch (e) {
+//   }
+
+//   catch (e) {
 //     console.log(e);
 //   }
-//   getState();
 // };
 
-// state
+// State
 export const selectState = (state) => state.books;
 
 export default booksSlice.reducer;

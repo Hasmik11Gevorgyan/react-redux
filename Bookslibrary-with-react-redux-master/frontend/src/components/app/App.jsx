@@ -2,6 +2,8 @@ import Header from "../header/Header";
 import Filter from "../filter/Filter";
 import Form from "../form/Form";
 import List from "../list/List";
+import Error from "../errors/Error";
+
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
         <div className="flex-1 basis-3/5 mx-auto flex flex-col">
           <Filter />
           <List />
+          <Error />
         </div>
       </main>
     </div>

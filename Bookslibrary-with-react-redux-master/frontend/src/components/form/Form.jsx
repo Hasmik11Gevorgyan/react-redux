@@ -1,42 +1,45 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 // import { addBook } from "../../redux/books/actionCreators";
-import { addBook, fetchBook } from "../../redux/slices/booksSlice";
-import { v4 as uuidv4 } from "uuid";
-import data from "../../../../data/books.json"; // Assuming data.json is in the same directory
+import { addBook, randomBook, fetchBook } from "../../redux/slices/booksSlice";
 
+import data from "../../../../data/books.json"; // Assuming data.json is in the same directory
+import { setError } from "../../redux/slices/errorSlice";
+import createBooksWithID from "../../utils/createBooksWithID"; // Adjust the import path as necessary
 // Assuming createBookWithId is a utility function
 
 const Form = () => {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
+  const [state, setState] = useState({
+    title: "",
+    author: "",
+  });
+
   const dispatch = useDispatch();
+  const { title, author } = state;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (title && author) {
-      // dispatch action to add book
-      const book = { id: uuidv4(), title, author, isFavorite: false };
-
-      dispatch(addBook(book, "via form"));
-      setAuthor("");
-      setTitle("");
+      dispatch(addBook(createBooksWithID({ title, author }, "via form")));
+      setState({ title: "", author: "" });
+    } else {
+      dispatch(setError("Please fill in both fields."));
     }
   };
 
-  const handleRandomBook = () => {
-    const rndIndex = Math.floor(Math.random() * data.length);
-    const rndBook = data[rndIndex];
-    const rndBookkWithId = {
-      ...rndBook,
-      id: uuidv4(),
-      isFavorite: false,
-    };
-    dispatch(addBook(rndBookkWithId, "via random book"));
+  const handleAddRandomBook = () => {
+    dispatch(
+      randomBook(
+        createBooksWithID(
+          data[Math.floor(Math.random() * data.length)],
+          "via random"
+        )
+      )
+    );
   };
 
   const handleAddRandomBookViaAPI = async () => {
-    dispatch(fetchBook());
+    dispatch(fetchBook("http://localhost:8888/random-book-delayed"));
   };
 
   return (
@@ -49,7 +52,9 @@ const Form = () => {
             type="text"
             id="title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) =>
+              setState((prevState) => ({ ...prevState, title: e.target.value }))
+            }
             placeholder="Book Title"
           />
         </div>
@@ -58,7 +63,12 @@ const Form = () => {
             type="text"
             id="author"
             value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            onChange={(e) =>
+              setState((prevState) => ({
+                ...prevState,
+                author: e.target.value,
+              }))
+            }
             placeholder="Book author"
             className="w-full px-4 py-2 mb-4 border border-gray-400 rounded-md"
           />
@@ -74,7 +84,7 @@ const Form = () => {
           </div>
           <div>
             <button
-              onClick={handleRandomBook}
+              onClick={handleAddRandomBook}
               type="button"
               className="bg-green-500 text-white px-6 py-2 rounded-full shadow-lg hover:bg-green-600 hover:scale-105 hover:shadow-xl transition-all duration-300"
             >
