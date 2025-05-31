@@ -3,7 +3,8 @@ import axios from "axios";
 import createBooksWithID from "../../utils/createBooksWithID";
 import { setError } from "./errorSlice";
 
-const initialState = [
+const initialState = {
+  books:[
   {
     id: "1",
     title: "Book 1",
@@ -11,6 +12,7 @@ const initialState = [
     source: "initial",
     isFavorite: false,
   },
+  
   {
     id: "2",
     title: "Book 2",
@@ -25,7 +27,10 @@ const initialState = [
     source: "initial",
     isFavorite: false,
   },
-];
+  
+],
+  errorMesage: null,
+};
 
 export const fetchBook = createAsyncThunk(
   "books/fetchBook",
@@ -65,11 +70,15 @@ const booksSlice = createSlice({
         state.push(createBooksWithID(action.payload, "via api"));
       }
     });
+     builder.addCase(fetchBook.rejected, (state, action) => {
+    state.errorMesage = action.error.message;
+
+})
   },
-});
+})
 
 // Action Creators
-export const { addBook, randomBook, deleteBook, toggleFavorite } =
+   export const { addBook, randomBook, deleteBook, toggleFavorite } =
   booksSlice.actions;
 
 // thunkFunction -> dispatch, getState
