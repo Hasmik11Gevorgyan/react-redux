@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 // import { addBook } from "../../redux/books/actionCreators";
 import { addBook, randomBook, fetchBook } from "../../redux/slices/booksSlice";
-
+իմպօռտ 
 import data from "../../../../data/books.json"; // Assuming data.json is in the same directory
 import { setError } from "../../redux/slices/errorSlice";
 import createBooksWithID from "../../utils/createBooksWithID"; // Adjust the import path as necessary
@@ -13,6 +13,8 @@ const Form = () => {
     title: "",
     author: "",
   });
+
+const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const { title, author } = state;
@@ -39,7 +41,9 @@ const Form = () => {
   };
 
   const handleAddRandomBookViaAPI = async () => {
+  setLoading(true);
     dispatch(fetchBook("http://localhost:8888/random-book-delayed"));
+    setLoading(false);
   };
 
   return (
@@ -96,7 +100,10 @@ const Form = () => {
               type="button"
               onClick={handleAddRandomBookViaAPI}
               className="bg-yellow-500 text-white px-6 py-2 rounded-full shadow-lg hover:bg-yellow-600 hover:scale-105 hover:shadow-xl transition-all duration-300"
+            disabled={loading}
+            
             >
+              {loading ? "Loading..." : "Random book via API"} 
               Use API
             </button>
           </div>
