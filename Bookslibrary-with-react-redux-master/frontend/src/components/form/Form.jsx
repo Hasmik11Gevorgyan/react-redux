@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 // import { addBook } from "../../redux/books/actionCreators";
 import { addBook, randomBook, fetchBook } from "../../redux/slices/booksSlice";
-իմպօռտ 
+
 import data from "../../../../data/books.json"; // Assuming data.json is in the same directory
 import { setError } from "../../redux/slices/errorSlice";
 import createBooksWithID from "../../utils/createBooksWithID"; // Adjust the import path as necessary
